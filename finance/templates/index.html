@@ -1,0 +1,104 @@
+{% load static %}  <!-- Загрузка тега static для работы со статическими файлами -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансы</title>
+    <!-- Подключение Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Подключение вашего собственного стилевого файла из статических ресурсов -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script>
+        // Функция для обновления даты и времени каждую секунду
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('datetime').textContent = now.toLocaleString();
+        }
+
+        // Функция для вывода данных о местоположении
+        function showLocation(latitude, longitude) {
+            document.getElementById('latitude').textContent = `Широта: ${latitude}`;
+            document.getElementById('longitude').textContent = `Долгота: ${longitude}`;
+        }
+
+        // Функция для получения геолокации пользователя
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    showLocation(latitude, longitude);
+
+                    // Отправка координат на сервер (например, через AJAX)
+                    $.ajax({
+                        type: 'GET',
+                        url: '/update_location/',  // Замените на ваш URL-адрес обработчика на сервере
+                        data: {
+                            'latitude': latitude,
+                            'longitude': longitude
+                        },
+                        success: function(response) {
+                            console.log('Координаты успешно отправлены на сервер');
+                        },
+                        error: function(error) {
+                            console.error('Произошла ошибка при отправке координат на сервер:', error);
+                        }
+                    });
+                });
+            } else {
+                console.log("Геолокация не поддерживается вашим браузером");
+            }
+        }
+
+        // Вызываем функцию получения геолокации
+        getLocation();
+
+        // Вызываем функцию обновления времени
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Финансы</h1>
+        
+        <!-- Вывод данных о местоположении и геолокации -->
+        <div id="locationData">
+            <p id="latitude"></p>
+            <p id="longitude"></p>
+        </div>
+
+        <!-- Вывод сообщения об ошибке -->
+        {% if error_message %}
+            <p>{{ error_message }}</p>
+        {% endif %}
+        
+        <!-- Вывод текущего времени -->
+        <p id="datetime"></p>
+        
+        <!-- Вывод данных о погоде -->
+        {% if current_weather %}
+            <h2>Погода в реальном времени</h2>
+            <p>Погода: {{ current_weather.detailed_status }}, Температура: {{ current_weather.temperature.temp }}°C</p>
+        {% else %}
+            <p>Данные о погоде отсутствуют</p>
+        {% endif %}
+    </div>
+
+    <!-- Ссылки на страницы, используя теги url для получения URL-адресов из urls.py -->
+    <a href="{% url 'add_revenue' %}" class="btn btn-primary">Добавить доход</a>
+    <a href="{% url 'add_cost' %}" class="btn btn-danger ml-2">Добавить расход</a>
+    <a href="{% url 'generate_report' %}" class="btn btn-info ml-2">Открыть отчёт</a>
+    <a href="{% url 'download_report' %}" class="btn btn-success ml-2">Скачать отчёт</a>
+
+    <!-- Bootstrap и jQuery JS, подключаемые напрямую через CDN -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
+</body>
+</html>
