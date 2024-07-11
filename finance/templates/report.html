@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчет</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- График -->
+        <img src="{{ graph }}" alt="График">
+        <!-- Статистика -->
+        <div class="mt-3">
+            <p>Общие расходы: {{ total_costs }}</p>
+            <p>Общие доходы: {{ total_revenues }}</p>
+            <p>Прибыль: {{ profit }}</p>
+        </div>
+        <!-- Ссылка на скачивание отчета -->
+        <a href="{% url 'download_report' %}" class="btn btn-info mt-3">Скачать отчет</a>
+        
+        <!-- Ссылка "Назад" -->
+        {% if request.META.HTTP_REFERER %}
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary mt-3">Назад</a>
+        {% else %}
+            <a href="{% url 'index' %}" class="btn btn-secondary mt-3">Назад</a>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap и jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
