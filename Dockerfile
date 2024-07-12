@@ -5,7 +5,8 @@ RUN mkdir /app
 # Устанавливаем рабочую директорию в контейнере
 WORKDIR /app
 
-ADD requirements.txt .
+ADD requirements.txt /app/
+
 # Устанавливаем зависимости
 RUN pip install --no-cache-dir -r requirements.txt
 
