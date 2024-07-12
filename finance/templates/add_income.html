@@ -1,0 +1,10 @@
+<!-- В файле templates/add_expense.html -->
+<h2>Добавить расход</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="name">Название:</label>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="amount">Сумма:</label>
+    <input type="text" id="amount" name="amount" required><br><br>
+    <button type="submit">Добавить</button>
+</form>
