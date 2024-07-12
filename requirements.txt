@@ -6,3 +6,4 @@ weasyprint==62.3
 pyowm==3.3.0
 geopy==2.4.1
 asgiref==3.8.1
+psycopg2-binary==2.9.9
