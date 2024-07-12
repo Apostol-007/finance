@@ -8,7 +8,7 @@ WORKDIR /app
 COPY requirements.txt /app/
 
 # Устанавливаем зависимости
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt > logs.txt 2>&1
 
 # Копируем все файлы проекта в рабочую директорию
 COPY . /app/
