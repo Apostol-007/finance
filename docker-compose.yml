@@ -28,7 +28,7 @@ services:
       DB_NAME: finance
       DB_USER: apostol
       DB_PASSWORD: 1
-    command: python finance/manage.py runserver
+    command: python manage.py runserver
 
 networks:
   finance-net:
