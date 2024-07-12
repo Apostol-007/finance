@@ -13,7 +13,7 @@ services:
     networks:
       - finance-net
     ports:
-      - "5433:5433"  # Добавляем маппинг порта
+      - "5432:5432"  # Добавляем маппинг порта
 
   web:
     image: apostol-finance
