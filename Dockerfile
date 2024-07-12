@@ -1,11 +1,9 @@
 # Используем официальный образ Python
 FROM python:3.10
 
+RUN mkdir /app
 # Устанавливаем рабочую директорию в контейнере
 WORKDIR /app
-
-# Копируем requirements.txt в рабочую директорию
-COPY requirements.txt /app/
 
 # Устанавливаем зависимости
 RUN pip install --no-cache-dir -r requirements.txt > logs.txt 2>&1
@@ -17,5 +15,5 @@ COPY . /app/
 EXPOSE 8000
 
 # Команда для запуска сервера
-CMD ["python", "finance/manage.py", "runserver"]
+CMD ["python", "manage.py", "runserver"]
 
