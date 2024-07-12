@@ -5,7 +5,7 @@ services:
     image: postgres:latest
     container_name: postgres-db
     volumes:
-      - ./finance_project:/app
+      - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: apostol
       POSTGRES_PASSWORD: 1
@@ -17,7 +17,7 @@ services:
     image: apostol-finance
     container_name: finance-apostol
     volumes:
-      - ./finance_project:/app
+      - web-data:/app
     ports:
       - "8000:8000"
     networks:
@@ -35,4 +35,7 @@ networks:
 
 volumes:
   postgres-data:
+    driver: local
+
+  web-data:
     driver: local
