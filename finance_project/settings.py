@@ -130,13 +130,13 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'your_db_name',
-        # 'USER': 'your_db_user',
-        # 'PASSWORD': 'your_db_password',
-        # 'HOST': 'localhost',  # Или IP-адрес вашего сервера базы данных
-        # 'PORT': '5432',
-    # }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'finance',  # Название вашей базы данных
+        'USER': 'apostol',  # Пользователь базы данных
+        'PASSWORD': '1',    # Пароль пользователя
+        'HOST': 'db',       # Имя хоста контейнера PostgreSQL (соответствует имени сервиса в docker-compose.yml)
+        'PORT': '5432',     # Порт PostgreSQL
+    }
+}
