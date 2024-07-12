@@ -17,5 +17,5 @@ COPY . /app/
 EXPOSE 8000
 
 # Команда для запуска сервера
-CMD ["python", "manage.py", "runserver"]
+CMD ["python", "finance/manage.py", "runserver"]
 
