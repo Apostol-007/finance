@@ -3,8 +3,8 @@
 # Переменные для настройки контейнера
 DOCKER_IMAGE="apostol-finance"
 DOCKER_CONTAINER="finance-apostol"
-GIT_REPO="https://github.com/Apostol-007/finance_project.git"
-GIT_BRANCH="main"
+GIT_REPO="https://github.com/Apostol-007/finance.git"
+GIT_BRANCH="master"
 
 # Проверяем, что Docker установлен и доступен
 docker -v >/dev/null 2>&1
@@ -19,19 +19,11 @@ docker-compose down >/dev/null 2>&1
 # Подгружаем код из репозитория Git
 git clone -b $GIT_BRANCH $GIT_REPO
 
-cd finance_project
+cd finance
 
-chmod +x *
-
-docker build -t apostol-finance .
-cp Dockerfile ../
-cp docker-compose.yml ../
-cd ..
+chmod +x start.sh
 
 # Запускаем контейнеры с помощью docker-compose
 docker-compose up -d
-chmod 777 /var/lib/docker
-echo "chmod 777 /var/lib/docker"
-chmod -R 777 /var/lib/docker/volumes/*
-echo "chmod 777 /var/lib/docker/volumes/*"
-echo "Контейнеры запущены. db доступен по адресу localhost:5432"
+
+echo "Контейнеры запущены. Web доступен по адресу http://localhost:8000/"

@@ -1,12 +1,13 @@
-# В файле financeapp/urls.py
+# urls.py
 
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.login_view, name='login'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('add_income/', views.add_income, name='add_income'),
     path('add_expense/', views.add_expense, name='add_expense'),
-    path('report/', views.generate_report, name='report'),
-    path('download_report/', views.download_report, name='download_report'),
+    path('register/', views.register_view, name='register'),  # Убедитесь, что имя 'register' указано здесь
+    # Другие URL-адреса вашего приложения
 ]

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% endif %}
+
+    <h3>Users:</h3>
+    <ul>
+        <h2>All Users</h2>
+        <ul>
+            {% for user in users %}
+                <li>
+                    Phone Number: {{ user.phone_number }}<br>
+                    First Name: {{ user.first_name }}<br>
+                    Last Name: {{ user.last_name }}<br>
+                    Email: {{ user.email }}<br>
+                    Active: {{ user.is_active }}<br>
+                    Staff: {{ user.is_staff }}<br>
+                    <hr>
+                </li>
+            {% endfor %}
+        </ul>
+    </ul>
+
+    <h3>Incomes:</h3>
+    <ul>
+        {% for income in incomes %}
+            <li>{{ income.name }} - {{ income.amount }}</li>
+        {% empty %}
+            <li>No incomes found.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Expenses:</h3>
+    <ul>
+        {% for expense in expenses %}
+            <li>{{ expense.name }} - {{ expense.amount }}</li>
+        {% empty %}
+            <li>No expenses found.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'register' %}">Register</a>
+</body>
+</html>
