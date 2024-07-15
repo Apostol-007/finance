@@ -1,9 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings 
-
+from django.conf import settings
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, phone_number, password=None, **extra_fields):
@@ -40,7 +39,7 @@ class Income(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
-    date = models.DateField()
+    date = models.DateField(default=timezone.now)  # Добавлено значение по умолчанию
 
     def __str__(self):
         return f"Income {self.id} - {self.amount}"
@@ -49,7 +48,7 @@ class Expense(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
-    date = models.DateField()
+    date = models.DateField(default=timezone.now)  # Добавлено значение по умолчанию
 
     def __str__(self):
         return f"Expense {self.id} - {self.amount}"
